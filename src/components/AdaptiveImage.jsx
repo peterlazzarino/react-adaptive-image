@@ -33,13 +33,8 @@ class AdaptiveImage extends React.Component{
     render(){
         if(!this.visible || !this.src){
             let noscript = null;
-            if(this.props.placeholder){
-                return placeholder;
-            }
             return (
-                <React.Fragment>
-                    <img className={this.props.className} />
-                </React.Fragment>
+                <img className={this.props.className} />
             )
         }
         return (
@@ -59,7 +54,6 @@ AdaptiveImage.propTypes = {
     fileExtension: PropTypes.string,
     altText: PropTypes.string,
     scrollThreshold: PropTypes.number,
-    placeholder: PropTypes.node
 };
 
 export default AdaptiveImage;
