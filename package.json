@@ -1,0 +1,26 @@
+{
+  "name": "react-lazy-image-resize",
+  "version": "1.0.0",
+  "description": "Lazy load images with React and dynamic image size generation. Allows for configurable image URL generation at the app level",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterlazzarino/react-lazy-image-resize.git"
+  },
+  "keywords": [
+    "lazy",
+    "image",
+    "resize",
+    "dynamic",
+    "retina"
+  ],
+  "author": "= <peter.lazzarino@goaheadtours.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterlazzarino/react-lazy-image-resize/issues"
+  },
+  "homepage": "https://github.com/peterlazzarino/react-lazy-image-resize#readme"
+}
