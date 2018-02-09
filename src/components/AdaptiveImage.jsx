@@ -9,7 +9,7 @@ import { clientOnly } from "client-component";
 class AdaptiveImage extends React.Component{    
     static defaultProps = {
         quality: 80,
-        fileExtension: "default",
+        fileName: "image",
         fileExtension: "jpg"
     };
 
