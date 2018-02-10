@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { register } from "../Utils/clientEvents"
-import { getUrl } from "../Utils/imgUrlGen"
+import { register } from "../utils/clientEvents"
+import { getUrl } from "../utils/imgUrlGen"
 import { clientOnly } from "client-component";
 
 @clientOnly
@@ -24,7 +24,8 @@ class AdaptiveImage extends React.Component{
             register(this);
         }
         else{
-            const image = { id, width, height, fileName, quality, fileExtension, altText } = this.props;
+            const { id, width, height, fileName, quality, fileExtension, altText } = this.props;
+            const image = { id, width, height, fileName, quality, fileExtension, altText };
             this.src = getUrl(ReactDOM.findDOMNode(this), image);
             this.visible = true;
         }

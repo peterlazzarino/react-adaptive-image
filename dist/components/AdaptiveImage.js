@@ -42,9 +42,9 @@ var _propTypes = require("prop-types");
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _clientEvents = require("../Utils/clientEvents");
+var _clientEvents = require("../utils/clientEvents");
 
-var _imgUrlGen = require("../Utils/imgUrlGen");
+var _imgUrlGen = require("../utils/imgUrlGen");
 
 var _clientComponent = require("client-component");
 
@@ -69,9 +69,16 @@ var AdaptiveImage = (0, _clientComponent.clientOnly)(_class = (_temp = _class2 =
             if (!this.props.preLoad) {
                 (0, _clientEvents.register)(this);
             } else {
-                var _props;
+                var _props = this.props,
+                    id = _props.id,
+                    width = _props.width,
+                    height = _props.height,
+                    fileName = _props.fileName,
+                    quality = _props.quality,
+                    fileExtension = _props.fileExtension,
+                    altText = _props.altText;
 
-                var image = (_props = this.props, id = _props.id, width = _props.width, height = _props.height, fileName = _props.fileName, quality = _props.quality, fileExtension = _props.fileExtension, altText = _props.altText, _props);
+                var image = { id: id, width: width, height: height, fileName: fileName, quality: quality, fileExtension: fileExtension, altText: altText };
                 this.src = (0, _imgUrlGen.getUrl)(_reactDom2.default.findDOMNode(this), image);
                 this.visible = true;
             }
