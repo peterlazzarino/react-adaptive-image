@@ -1,2 +1,5 @@
-# react-lazy-image-resize
-React component that allows for lazy image loading on scroll with resizing based on users viewport size and screen density (retina display).
+# react-adaptive-image
+
+Lazy image loading with dynamic resizing based on viewport and screen pixel density. Deliver the right content for the right screen sizes.
+
+
