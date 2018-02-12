@@ -166,15 +166,21 @@ The initImages function takes an object for intialization that, in addition to t
 ### Receives an Image parameter with the following fields
 
 **width** - the calculated width of the image in the DOM  
-**height** - will be 0, unless passed into component. All dynamic resizes at this point will be by width with aspect ratio kept intact.   
+  
+**height** - will be 0, unless passed into component. All dynamic resizes at this point will be by width with aspect ratio kept intact.  
+  
 **fileName** - the name of the file passed to the component.  
+  
 **quality** - the qualtiy of the file passed to the component.  
+  
 **altText** - alt text of the image.  
 
 ## imageSettings
 
 **noWidthReplacementSize** - If an image is smaller than this size (200px defualt) the image will automatically be rendered at this width.  
-**maxWidth** - The max width than an image can be rendered as.  
+  
+**maxWidth** - The max width than an image can be rendered as. 
+  
 **lazyScrollThreshold** - Defines how far below the fold images should be loaded. By default an image 300px or less below the fold will have its src loaded with the result of the image renderer.  
 
 
