@@ -4,6 +4,15 @@ Lazy image loading with dynamic resizing based on viewport and screen pixel dens
 
 This react component look at its own dom node and ask for a properly sized image based on its own width. The image request will not happen until it should be lazy loaded into the dom.
 
+# Requirements
+
+Images hosted on a server or in a CMS that allows for resizing based on URL parameters. 
+  
+Some open source libraries that do this out of the box.
+  
+ - [GraphicsMagick for node.js](http://aheckmann.github.io/gm/]http://aheckmann.github.io/gm/)
+ - [Image Steam](https://github.com/asilvas/node-image-steam)
+
 # What does it do?
 
 If you have an image that needs to be shown on multiple browser sizes (mobile, tablet, desktop, 5k TV) but don't want to sacrifice quality or performance based on the users device, this library will allow you to serve the correct image size at any resolution.
@@ -37,7 +46,7 @@ with this library, you can solve the problem like this.
 
 ### Step 1
 
-Configure your url generation to point at your image server. [node-image-steam](https://www.npmjs.com/package/image-steam) can be set up to point at local fs storage with minimal configration. 
+Configure your url generation to point at your image server. 
 
 ```javascript
 
