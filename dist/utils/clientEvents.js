@@ -58,10 +58,9 @@ var tryShowImage = function tryShowImage(component) {
             height = _component$props.height,
             fileName = _component$props.fileName,
             quality = _component$props.quality,
-            fileExtension = _component$props.fileExtension,
             altText = _component$props.altText;
 
-        var image = { id: id, width: width, height: height, fileName: fileName, quality: quality, fileExtension: fileExtension, altText: altText };
+        var image = { id: id, width: width, height: height, fileName: fileName, quality: quality, altText: altText };
         component.src = (0, _imgUrlGen.getUrl)(node, image);
         component.visible = true;
         component.forceUpdate();

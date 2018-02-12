@@ -75,10 +75,9 @@ var AdaptiveImage = (0, _clientComponent.clientOnly)(_class = (_temp = _class2 =
                     height = _props.height,
                     fileName = _props.fileName,
                     quality = _props.quality,
-                    fileExtension = _props.fileExtension,
                     altText = _props.altText;
 
-                var image = { id: id, width: width, height: height, fileName: fileName, quality: quality, fileExtension: fileExtension, altText: altText };
+                var image = { id: id, width: width, height: height, fileName: fileName, quality: quality, altText: altText };
                 this.src = (0, _imgUrlGen.getUrl)(_reactDom2.default.findDOMNode(this), image);
                 this.visible = true;
             }
@@ -101,19 +100,17 @@ var AdaptiveImage = (0, _clientComponent.clientOnly)(_class = (_temp = _class2 =
     return AdaptiveImage;
 }(_react2.default.Component), _class2.defaultProps = {
     quality: 80,
-    fileName: "image",
-    fileExtension: "jpg"
+    fileName: "image.jpg"
 }, _temp)) || _class;
 
 AdaptiveImage.propTypes = {
-    id: _propTypes2.default.string.isRequired,
+    id: _propTypes2.default.string,
     width: _propTypes2.default.number,
     height: _propTypes2.default.string,
-    fileName: _propTypes2.default.string,
+    fileName: _propTypes2.default.string.isRequired,
     quality: _propTypes2.default.number,
     className: _propTypes2.default.string,
     preLoad: _propTypes2.default.bool,
-    fileExtension: _propTypes2.default.string,
     altText: _propTypes2.default.string,
     scrollThreshold: _propTypes2.default.number
 };

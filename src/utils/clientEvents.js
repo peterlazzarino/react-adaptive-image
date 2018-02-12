@@ -36,8 +36,8 @@ const checkVisible = () => {
 const tryShowImage = (component) => {
     const node = ReactDOM.findDOMNode(component);
     if(node && shouldBeShown(node)){
-        const { id, width, height, fileName, quality, fileExtension, altText } = component.props;
-        const image = { id, width, height, fileName, quality, fileExtension, altText };
+        const { id, width, height, fileName, quality, altText } = component.props;
+        const image = { id, width, height, fileName, quality, altText };
         component.src = getUrl(node, image);
         component.visible = true;
         component.forceUpdate();

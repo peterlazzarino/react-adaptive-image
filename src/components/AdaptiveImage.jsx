@@ -9,8 +9,7 @@ import { clientOnly } from "client-component";
 class AdaptiveImage extends React.Component{    
     static defaultProps = {
         quality: 80,
-        fileName: "image",
-        fileExtension: "jpg"
+        fileName: "image.jpg",
     };
 
     constructor(props){
@@ -24,8 +23,8 @@ class AdaptiveImage extends React.Component{
             register(this);
         }
         else{
-            const { id, width, height, fileName, quality, fileExtension, altText } = this.props;
-            const image = { id, width, height, fileName, quality, fileExtension, altText };
+            const { id, width, height, fileName, quality, altText } = this.props;
+            const image = { id, width, height, fileName, quality, altText };
             this.src = getUrl(ReactDOM.findDOMNode(this), image);
             this.visible = true;
         }
@@ -45,14 +44,13 @@ class AdaptiveImage extends React.Component{
 }
 
 AdaptiveImage.propTypes = {
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.string,
-    fileName: PropTypes.string,
+    fileName: PropTypes.string.isRequired,
     quality: PropTypes.number,
     className: PropTypes.string,
     preLoad: PropTypes.bool,
-    fileExtension: PropTypes.string,
     altText: PropTypes.string,
     scrollThreshold: PropTypes.number,
 };

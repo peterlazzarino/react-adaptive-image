@@ -19,7 +19,7 @@ var getUrl = exports.getUrl = function getUrl(node, image) {
 
     var calcWidth = width;
     if (!calcWidth) {
-        calcWidth = Math.floor(node.offsetWidth, 250);
+        calcWidth = Math.max(node.offsetWidth, 250);
     }
     var finalWidth = resolutionValue(calcWidth);
     //image magick will resize image to aspect ratio if 0 is given as a height parameter.
