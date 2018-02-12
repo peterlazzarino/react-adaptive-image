@@ -46,7 +46,7 @@ with this library, you can solve the problem like this.
 
 ### Step 1
 
-Configure your url generation to point at your image server. 
+Configure your url generation to point at your image server. This is a basic setup that works with a local instance of node-image-steam.
 
 ```javascript
 
