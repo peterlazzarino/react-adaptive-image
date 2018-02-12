@@ -4,6 +4,8 @@ Lazy image loading with dynamic resizing based on viewport and screen pixel dens
 
 This react component look at its own dom node and ask for a properly sized image based on its own width. The image request will not happen until it should be lazy loaded into the dom.
 
+This library was created to balance image load time / quality and above the fold performance on a content heavy website.
+
 # Requirements
 
 Images hosted on a server or in a CMS that allows for resizing based on URL parameters. 
