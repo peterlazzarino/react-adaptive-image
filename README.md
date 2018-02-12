@@ -158,7 +158,8 @@ The initImages function takes an object for intialization that, in addition to t
 
 **width** - the calculated width of the image in the DOM  
   
-**height** - will be 0, unless passed into component. All dynamic resizes at this point will be by width with aspect ratio kept intact.     
+**height** - will be 0, unless passed into component. All dynamic resizes at this point will be by width with aspect ratio kept intact.  
+  
 **fileName** - the name of the file passed to the component.  
   
 **quality** - the qualtiy of the file passed to the component.  
