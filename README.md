@@ -12,7 +12,7 @@ Images hosted on a server or in a CMS that allows for resizing based on URL para
   
 Some open source libraries that do this out of the box.
   
- - [GraphicsMagick for node.js](]http://aheckmann.github.io/gm/)
+ - [GraphicsMagick for node.js](http://aheckmann.github.io/gm/)
  - [Image Steam](https://github.com/asilvas/node-image-steam)
 
 # What does it do?
