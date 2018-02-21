@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { register } from "../utils/clientEvents"
-import { getUrl } from "../utils/imgUrlGen"
-import { clientOnly } from "client-component";
+import { getUrl, getStaticUrl } from "../utils/imgUrlGen"
 
-@clientOnly
+const canUseDOM = typeof window !== "undefined";
+
 class AdaptiveImage extends React.Component{    
     static defaultProps = {
         quality: 80,
@@ -14,31 +14,40 @@ class AdaptiveImage extends React.Component{
 
     constructor(props){
         super(props);
-        this.visible = false;
-        this.src = null;
+        this.state = {
+            visible: false,
+            src: null
+        }
     }
     
     componentDidMount(){
-        if(!this.props.preLoad){
+        if(!this.props.preLoad && !this.props.width){
             register(this);
         }
         else{
             const { id, width, height, fileName, quality, altText } = this.props;
             const image = { id, width, height, fileName, quality, altText };
-            this.src = getUrl(ReactDOM.findDOMNode(this), image);
-            this.visible = true;
+            if(!canUseDOM){
+                this.setState({
+                    src: getStaticUrl(image)
+                })                
+            }
+            this.setState({
+                src: getUrl(ReactDOM.findDOMNode(this), image),
+                visible: true
+            })
         }
     }
 
     render(){
-        if(!this.visible || !this.src){
-            let noscript = null;
+        const { visible, src } = this.state; 
+        if(!visible || !src){
             return (
                 <img className={this.props.className} />
             )
         }
         return (
-            <img src={this.src} className={this.props.className} />
+            <img src={src} className={this.props.className} />
         )
     }
 }
@@ -46,7 +55,7 @@ class AdaptiveImage extends React.Component{
 AdaptiveImage.propTypes = {
     id: PropTypes.string,
     width: PropTypes.number,
-    height: PropTypes.string,
+    height: PropTypes.number,
     fileName: PropTypes.string.isRequired,
     quality: PropTypes.number,
     className: PropTypes.string,
