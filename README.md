@@ -1,5 +1,7 @@
 # React Adaptive Image
 
+[![Build Status](https://travis-ci.org/peterlazzarino/react-adaptive-image.svg?branch=master)](https://travis-ci.org/peterlazzarino/react-adaptive-image)
+
 Lazy image loading with dynamic resizing based on viewport and screen pixel density. Deliver the right content for the right screen sizes.
 
 This react component look at its own dom node and ask for a properly sized image based on its own width. The image request will not happen until it should be lazy loaded into the dom.
