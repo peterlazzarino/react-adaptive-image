@@ -1,6 +1,7 @@
 import detectPassiveEvents from 'detect-passive-events';
 import { getUrl } from "./imgUrlGen";
 import { imageSettings } from "./imgSettings";
+import { isValidDOMElement } from "./elValidation";
 import ReactDOM from "react-dom";
 
 //use capture by default
@@ -45,9 +46,8 @@ const tryShowImage = (component) => {
     }
 }
 
-const shouldBeShown = (node) => {
-    //if a user is hidden by css or otherwise, the offset parent will be null https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent  
-    if(!node.offsetParent){
+const shouldBeShown = (node) => { 
+    if(!isValidDOMElement(node)){
         return false;
     }
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
