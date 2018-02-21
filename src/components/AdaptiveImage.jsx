@@ -10,6 +10,7 @@ class AdaptiveImage extends React.Component{
     static defaultProps = {
         quality: 80,
         fileName: "image.jpg",
+        onShow: () => {}
     };
 
     constructor(props){
@@ -21,21 +22,29 @@ class AdaptiveImage extends React.Component{
     }
     
     componentDidMount(){
-        if(!this.props.preLoad && !this.props.width){
-            register(this);
+        const { preLoad, width, onShow } = this.props;
+        if(!preLoad && !width){
+            register(this, onShow);
         }
         else{
-            const { id, width, height, fileName, quality, altText } = this.props;
+            const { id, height, fileName, quality, altText } = this.props;
             const image = { id, width, height, fileName, quality, altText };
+            let src = "";
             if(!canUseDOM){
+                src = getStaticUrl(image);
                 this.setState({
-                    src: getStaticUrl(image)
+                    src: src,
+                    visible:true
                 })                
             }
-            this.setState({
-                src: getUrl(ReactDOM.findDOMNode(this), image),
-                visible: true
-            })
+            else{
+                src = getUrl(ReactDOM.findDOMNode(this), image);
+                this.setState({
+                    src: src,
+                    visible: true
+                })
+            }
+            onShow(src);
         }
     }
 
@@ -62,6 +71,7 @@ AdaptiveImage.propTypes = {
     preLoad: PropTypes.bool,
     altText: PropTypes.string,
     scrollThreshold: PropTypes.number,
+    onShow: PropTypes.func
 };
 
 export default AdaptiveImage;
