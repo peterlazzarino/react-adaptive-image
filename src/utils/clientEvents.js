@@ -1,6 +1,7 @@
 import detectPassiveEvents from 'detect-passive-events';
 import { getUrl } from "./imgUrlGen";
 import { imageSettings } from "./imgSettings";
+import { isValidDOMElement } from "./elValidation";
 import ReactDOM from "react-dom";
 
 //use capture by default
@@ -13,12 +14,15 @@ if (detectPassiveEvents.hasSupport === true) {
 let listeners = []
 let pending = [];
 
-export const register = (component) => {
+export const register = (component, callback) => {
     if(listeners.length == 0){
         bindEvents();
     }
-    listeners.push(component);
-    tryShowImage(component)
+    listeners.push({ 
+        component: component, 
+        callback: callback
+    });
+    tryShowImage(component, callback)
 }
 
 const bindEvents = () => {    
@@ -28,12 +32,12 @@ const bindEvents = () => {
 const checkVisible = () => {
     for (let i = 0; i < listeners.length; ++i) {
         const listener = listeners[i];
-        tryShowImage(listener);
+        tryShowImage(listener.component, listener.callback);
     }
     purgePending();
 }
 
-const tryShowImage = (component) => {
+const tryShowImage = (component, callback) => {
     const node = ReactDOM.findDOMNode(component);
     if(node && shouldBeShown(node)){
         const { id, width, height, fileName, quality, altText } = component.props;
@@ -41,13 +45,13 @@ const tryShowImage = (component) => {
         component.src = getUrl(node, image);
         component.visible = true;
         component.forceUpdate();
+        callback(component.src);
         pending.push(component);
     }
 }
 
 const shouldBeShown = (node) => {
-    //if a user is hidden by css or otherwise, the offset parent will be null https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent  
-    if(!node.offsetParent){
+    if(!isValidDOMElement(node)){
         return false;
     }
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;

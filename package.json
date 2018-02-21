@@ -1,35 +1,46 @@
 {
   "name": "react-adaptive-image",
-  "version": "1.0.0",
+  "version": "1.1.0-pre",
   "description": "Lazy load images with React and dynamic image size generation. Allows for configurable image URL generation at the app level",
   "main": "dist/index.js",
   "scripts": {
+    "test": "jest",
     "build": "babel src --ignore __tests__ --out-dir ./dist --copy-files"
   },
   "devDependencies": {
     "babel-cli": "^6.6.4",
     "babel-core": "^6.7.4",
     "babel-eslint": "^6.0.2",
+    "babel-jest": "^22.4.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-es2015-modules-umd": "^6.6.5",
     "babel-plugin-transform-react-constant-elements": "6.23.0",
     "babel-plugin-transform-react-inline-elements": "6.22.0",
-    "babel-plugin-transform-runtime": "^6.15.0",
     "babel-plugin-transform-regenerator": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-react-optimize": "^1.0.1",
-    "babel-plugin-transform-es2015-modules-umd": "^6.6.5",
+    "babel-preset-stage-0": "^6.3.13",
     "babel-preset-stage-2": "^6.5.0",
-    "babel-polyfill": "^6.20.0",
-    "babel-preset-es2015": "^6.14.0",
-    "babel-preset-react": "^6.11.1",
-    "babel-preset-stage-0": "^6.3.13"
+    "enzyme": "^3.3.0",
+    "jest": "^22.4.0",
+    "react-test-renderer": "^16.2.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "./test-setup.js"
+    ]
   },
   "dependencies": {
-    "react": "16.0.0",
-    "react-dom": "16.0.0",
+    "detect-passive-events": "1.0.4",
+    "enzyme-adapter-react-16": "^1.1.1",
     "prop-types": "15.6.0",
-    "client-component": "1.0.1",
-    "detect-passive-events": "1.0.4"
+    "react": "16.0.0",
+    "react-dom": "16.0.0"
   },
   "repository": {
     "type": "git",

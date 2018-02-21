@@ -19,6 +19,13 @@ export const getUrl = (node, image) => {
     ));
 }
 
+export const getStaticUrl = (image) => {
+    if(!image.width){
+        console.warn("react-adaptive-image: You must provide a width to server render src attributes")
+    }
+    return imageResolver(image);
+}
+
 const resolutionValue = (val) => {
     const realPixelRatio = Math.floor(window.devicePixelRatio);
     return (realPixelRatio || 1) > 1 ? val * realPixelRatio : val;
