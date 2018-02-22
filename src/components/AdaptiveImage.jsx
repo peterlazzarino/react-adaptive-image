@@ -28,7 +28,7 @@ class AdaptiveImage extends React.Component{
         if(src){
             this.showImage(src);
         }
-        if(preLoad){
+        else if(preLoad){
             this.showImage(getStaticUrl(image));
         }
     }
@@ -36,9 +36,9 @@ class AdaptiveImage extends React.Component{
     handleClientLoad(image){
         const { preLoad, onShow, src } = this.props;
         if(src){
-            this.showImage(src);
+            returnthis.showImage(src);
         }
-        if(!preLoad){
+        else if(!preLoad){
             register(this, onShow);
         }
         else{                
