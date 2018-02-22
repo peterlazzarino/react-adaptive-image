@@ -13,6 +13,8 @@ var _imgUrlGen = require("./imgUrlGen");
 
 var _imgSettings = require("./imgSettings");
 
+var _elValidation = require("./elValidation");
+
 var _reactDom = require("react-dom");
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -29,12 +31,15 @@ if (_detectPassiveEvents2.default.hasSupport === true) {
 var listeners = [];
 var pending = [];
 
-var register = exports.register = function register(component) {
+var register = exports.register = function register(component, callback) {
     if (listeners.length == 0) {
         bindEvents();
     }
-    listeners.push(component);
-    tryShowImage(component);
+    listeners.push({
+        component: component,
+        callback: callback
+    });
+    tryShowImage(component, callback);
 };
 
 var bindEvents = function bindEvents() {
@@ -44,12 +49,12 @@ var bindEvents = function bindEvents() {
 var checkVisible = function checkVisible() {
     for (var i = 0; i < listeners.length; ++i) {
         var listener = listeners[i];
-        tryShowImage(listener);
+        tryShowImage(listener.component, listener.callback);
     }
     purgePending();
 };
 
-var tryShowImage = function tryShowImage(component) {
+var tryShowImage = function tryShowImage(component, callback) {
     var node = _reactDom2.default.findDOMNode(component);
     if (node && shouldBeShown(node)) {
         var _component$props = component.props,
@@ -61,16 +66,19 @@ var tryShowImage = function tryShowImage(component) {
             altText = _component$props.altText;
 
         var image = { id: id, width: width, height: height, fileName: fileName, quality: quality, altText: altText };
-        component.src = (0, _imgUrlGen.getUrl)(node, image);
-        component.visible = true;
+        var nextUrl = (0, _imgUrlGen.getUrl)(node, image);
+        component.setState({
+            src: nextUrl,
+            visible: true
+        });
         component.forceUpdate();
+        callback(nextUrl);
         pending.push(component);
     }
 };
 
 var shouldBeShown = function shouldBeShown(node) {
-    //if a user is hidden by css or otherwise, the offset parent will be null https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent  
-    if (!node.offsetParent) {
+    if (!(0, _elValidation.isValidDOMElement)(node)) {
         return false;
     }
     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
