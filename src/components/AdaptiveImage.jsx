@@ -36,7 +36,7 @@ class AdaptiveImage extends React.Component{
     handleClientLoad(image){
         const { preLoad, onShow, src } = this.props;
         if(src){
-            returnthis.showImage(src);
+            this.showImage(src);
         }
         else if(!preLoad){
             register(this, onShow);
