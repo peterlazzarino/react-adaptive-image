@@ -27,6 +27,10 @@ class AdaptiveImage extends React.Component{
     componentDidMount(){        
         this.loadImage(this.props); 
     }
+
+    componentWillUnmount(){
+        deregister(this.props.id);        
+    }
     
     componentWillReceiveProps(nextProps) {
         if(this.props.fileName != nextProps.fileName || this.props.id != nextProps.id){
