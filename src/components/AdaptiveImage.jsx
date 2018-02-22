@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { register } from "../utils/clientEvents"
+import { register, deregister } from "../utils/clientEvents"
 import { getUrl, getStaticUrl } from "../utils/imgUrlGen"
 
 const canUseDOM = typeof window !== "undefined";
@@ -19,9 +19,32 @@ class AdaptiveImage extends React.Component{
             visible: false,
             src: null
         }
+        this.loadImage = this.loadImage.bind(this);
         this.handleClientLoad = this.handleClientLoad.bind(this);
         this.handleServerLoad = this.handleServerLoad.bind(this);
     }
+
+    componentDidMount(){        
+        this.loadImage(this.props); 
+    }
+    
+    componentWillReceiveProps(nextProps) {
+        if(this.props.fileName != nextProps.fileName || this.props.id != nextProps.id){
+            deregister(this.props.id);
+            this.loadImage(nextProps);    
+        }
+    }  
+    
+    loadImage(props){
+        const { id, height, preLoad, onShow, fileName, width, quality, altText } = props;
+        const image = { id, width, height, fileName, quality, altText };
+        if(canUseDOM){
+            this.handleClientLoad(image);
+        }        
+        else{
+            this.handleServerLoad(image)
+        }
+    }  
 
     handleServerLoad(image){
         const { preLoad, onShow, src } = this.props;
@@ -56,17 +79,6 @@ class AdaptiveImage extends React.Component{
         onShow(src);
     }
     
-    componentDidMount(){
-        const { id, height, preLoad, onShow, fileName, width, quality, altText } = this.props;
-        const image = { id, width, height, fileName, quality, altText };
-        if(canUseDOM){
-            this.handleClientLoad(image);
-        }        
-        else{
-            this.handleServerLoad(image)
-        }
-    }
-
     render(){
         const { visible, src } = this.state; 
         const { altText, itemProp } = this.props;

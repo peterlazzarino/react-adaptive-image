@@ -25,6 +25,10 @@ export const register = (component, callback) => {
     tryShowImage(component, callback)
 }
 
+export const deregister = (id) => {    
+    removeListener(id);
+}
+
 const bindEvents = () => {    
     window.addEventListener("scroll", checkVisible, eventSettings);
 }
@@ -74,12 +78,16 @@ const getYPosition = (node) => {
     return yPosition;
 }
 
+const removeListener = (id) => {    
+    const index = listeners.findIndex(x => x.component.props.id == id);
+    if (index !== -1) {
+        listeners.splice(index, 1);
+    }
+}
+
 const purgePending = () => {
-    pending.forEach((component) => {
-        const index = listeners.indexOf(component);
-        if (index !== -1) {
-            listeners.splice(index, 1);
-        }
+    pending.forEach((component) => {        
+        removeListener(component.props.id);
     });
 
     pending = [];
