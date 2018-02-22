@@ -22,41 +22,43 @@ class AdaptiveImage extends React.Component{
     }
     
     componentDidMount(){
-        const { preLoad, width, onShow } = this.props;
-        if(!preLoad && !width){
-            register(this, onShow);
-        }
-        else{
-            const { id, height, fileName, quality, altText } = this.props;
-            const image = { id, width, height, fileName, quality, altText };
-            let src = "";
-            if(!canUseDOM){
-                src = getStaticUrl(image);
-                this.setState({
-                    src: src,
-                    visible:true
-                })                
+        const { id, height, preLoad, onShow, fileName, width, quality, altText } = this.props;
+        const image = { id, width, height, fileName, quality, altText };
+        if(canUseDOM){
+            if(!preLoad){
+                register(this, onShow);
             }
-            else{
-                src = getUrl(ReactDOM.findDOMNode(this), image);
+            else{                
+                const src = getUrl(ReactDOM.findDOMNode(this), image);
                 this.setState({
                     src: src,
                     visible: true
-                })
+                }) 
+                onShow(src);
             }
-            onShow(src);
+        }        
+        else{
+            if(preLoad){
+                const src = getStaticUrl(image);
+                this.setState({
+                    src: src,
+                    visible:true
+                })           
+                onShow(src);     
+            }
         }
     }
 
     render(){
         const { visible, src } = this.state; 
+        const { altText, itemProp } = this.props;
         if(!visible || !src){
             return (
-                <img className={this.props.className} />
+                <img alt={altText} itemProp={itemProp} className={this.props.className} />
             )
         }
         return (
-            <img src={src} className={this.props.className} />
+            <img src={src} alt={altText} itemProp={itemProp} className={this.props.className} />
         )
     }
 }
@@ -70,6 +72,7 @@ AdaptiveImage.propTypes = {
     className: PropTypes.string,
     preLoad: PropTypes.bool,
     altText: PropTypes.string,
+    itemProp: PropTypes.string,
     scrollThreshold: PropTypes.number,
     onShow: PropTypes.func
 };

@@ -21,7 +21,7 @@ export const getUrl = (node, image) => {
 
 export const getStaticUrl = (image) => {
     if(!image.width){
-        console.warn("react-adaptive-image: You must provide a width to server render src attributes")
+        console.warn("react-adaptive-image: You must provide a width to server render src attributes or use preload")
     }
     return imageResolver(image);
 }

@@ -42,8 +42,10 @@ const tryShowImage = (component, callback) => {
     if(node && shouldBeShown(node)){
         const { id, width, height, fileName, quality, altText } = component.props;
         const image = { id, width, height, fileName, quality, altText };
-        component.src = getUrl(node, image);
-        component.visible = true;
+        component.setState({
+            src: getUrl(node, image),
+            visible: true
+        });
         component.forceUpdate();
         callback(component.src);
         pending.push(component);

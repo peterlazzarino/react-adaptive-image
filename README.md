@@ -142,6 +142,12 @@ Type string  Default: undefined  IsRequired: No
 
 Alt text for src attribute.
 
+### itemProp
+
+Type string  Default: undefined  IsRequired: No
+
+ItemProp for [image schema microdata](http://schema.org/image)
+
 ### preLoad
 
 Type boolean  Default: false  IsRequired: No
