@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.getUrl = undefined;
+exports.getStaticUrl = exports.getUrl = undefined;
 
 var _assign = require("babel-runtime/core-js/object/assign");
 
@@ -28,6 +28,13 @@ var getUrl = exports.getUrl = function getUrl(node, image) {
         width: finalWidth,
         height: finalHeight
     }));
+};
+
+var getStaticUrl = exports.getStaticUrl = function getStaticUrl(image) {
+    if (!image.width) {
+        console.warn("react-adaptive-image: You must provide a width to server render src attributes or use preload");
+    }
+    return (0, _imgSettings.imageResolver)(image);
 };
 
 var resolutionValue = function resolutionValue(val) {

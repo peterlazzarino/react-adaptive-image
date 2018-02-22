@@ -154,6 +154,12 @@ Type boolean  Default: false  IsRequired: No
 
 Setting this to true will skip lazyloading checks and load the src immediately on mount.
 
+### src
+
+Type boolean  Default: undefined  IsRequired: No
+
+This will override the auto generating src and skip the imageResolver function so you can use the lazy loading functionality only.
+
 
 # Usage
 

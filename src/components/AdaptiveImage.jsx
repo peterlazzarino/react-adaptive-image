@@ -19,33 +19,51 @@ class AdaptiveImage extends React.Component{
             visible: false,
             src: null
         }
+        this.handleClientLoad = this.handleClientLoad.bind(this);
+        this.handleServerLoad = this.handleServerLoad.bind(this);
+    }
+
+    handleServerLoad(image){
+        const { preLoad, onShow, src } = this.props;
+        if(src){
+            this.showImage(src);
+        }
+        if(preLoad){
+            this.showImage(getStaticUrl(image));
+        }
+    }
+
+    handleClientLoad(image){
+        const { preLoad, onShow, src } = this.props;
+        if(src){
+            this.showImage(src);
+        }
+        if(!preLoad){
+            register(this, onShow);
+        }
+        else{                
+            const src = getUrl(ReactDOM.findDOMNode(this), image);
+            this.showImage(src);
+        }
+    }
+
+    showImage(src){
+        const { onShow } = this.props;        
+        this.setState({
+            src: src,
+            visible: true
+        }) 
+        onShow(src);
     }
     
     componentDidMount(){
         const { id, height, preLoad, onShow, fileName, width, quality, altText } = this.props;
         const image = { id, width, height, fileName, quality, altText };
         if(canUseDOM){
-            if(!preLoad){
-                register(this, onShow);
-            }
-            else{                
-                const src = getUrl(ReactDOM.findDOMNode(this), image);
-                this.setState({
-                    src: src,
-                    visible: true
-                }) 
-                onShow(src);
-            }
+            this.handleClientLoad(image);
         }        
         else{
-            if(preLoad){
-                const src = getStaticUrl(image);
-                this.setState({
-                    src: src,
-                    visible:true
-                })           
-                onShow(src);     
-            }
+            this.handleServerLoad(image)
         }
     }
 
@@ -74,7 +92,8 @@ AdaptiveImage.propTypes = {
     altText: PropTypes.string,
     itemProp: PropTypes.string,
     scrollThreshold: PropTypes.number,
-    onShow: PropTypes.func
+    onShow: PropTypes.func,
+    src: PropTypes.string
 };
 
 export default AdaptiveImage;

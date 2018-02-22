@@ -28,7 +28,7 @@ var _inherits2 = require("babel-runtime/helpers/inherits");
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _class, _class2, _temp;
+var _class, _temp;
 
 var _react = require("react");
 
@@ -46,11 +46,11 @@ var _clientEvents = require("../utils/clientEvents");
 
 var _imgUrlGen = require("../utils/imgUrlGen");
 
-var _clientComponent = require("client-component");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var AdaptiveImage = (0, _clientComponent.clientOnly)(_class = (_temp = _class2 = function (_React$Component) {
+var canUseDOM = typeof window !== "undefined";
+
+var AdaptiveImage = (_temp = _class = function (_React$Component) {
     (0, _inherits3.default)(AdaptiveImage, _React$Component);
 
     function AdaptiveImage(props) {
@@ -58,61 +58,125 @@ var AdaptiveImage = (0, _clientComponent.clientOnly)(_class = (_temp = _class2 =
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (AdaptiveImage.__proto__ || (0, _getPrototypeOf2.default)(AdaptiveImage)).call(this, props));
 
-        _this.visible = false;
-        _this.src = null;
+        _this.state = {
+            visible: false,
+            src: null
+        };
+        _this.handleClientLoad = _this.handleClientLoad.bind(_this);
+        _this.handleServerLoad = _this.handleServerLoad.bind(_this);
         return _this;
     }
 
     (0, _createClass3.default)(AdaptiveImage, [{
+        key: "handleServerLoad",
+        value: function handleServerLoad(image) {
+            var _props = this.props,
+                preLoad = _props.preLoad,
+                onShow = _props.onShow,
+                src = _props.src;
+
+            if (src) {
+                this.showImage(src);
+            }
+            if (preLoad) {
+                this.showImage((0, _imgUrlGen.getStaticUrl)(image));
+            }
+        }
+    }, {
+        key: "handleClientLoad",
+        value: function handleClientLoad(image) {
+            var _props2 = this.props,
+                preLoad = _props2.preLoad,
+                onShow = _props2.onShow,
+                src = _props2.src;
+
+            if (src) {
+                this.showImage(src);
+            }
+            if (!preLoad) {
+                (0, _clientEvents.register)(this, onShow);
+            } else {
+                var _src = (0, _imgUrlGen.getUrl)(_reactDom2.default.findDOMNode(this), image);
+                this.showImage(_src);
+            }
+        }
+    }, {
+        key: "showImage",
+        value: function showImage(src) {
+            var onShow = this.props.onShow;
+
+            this.setState({
+                src: src,
+                visible: true
+            });
+            onShow(src);
+        }
+    }, {
         key: "componentDidMount",
         value: function componentDidMount() {
-            if (!this.props.preLoad) {
-                (0, _clientEvents.register)(this);
-            } else {
-                var _props = this.props,
-                    id = _props.id,
-                    width = _props.width,
-                    height = _props.height,
-                    fileName = _props.fileName,
-                    quality = _props.quality,
-                    altText = _props.altText;
+            var _props3 = this.props,
+                id = _props3.id,
+                height = _props3.height,
+                preLoad = _props3.preLoad,
+                onShow = _props3.onShow,
+                fileName = _props3.fileName,
+                width = _props3.width,
+                quality = _props3.quality,
+                altText = _props3.altText;
 
-                var image = { id: id, width: width, height: height, fileName: fileName, quality: quality, altText: altText };
-                this.src = (0, _imgUrlGen.getUrl)(_reactDom2.default.findDOMNode(this), image);
-                this.visible = true;
+            var image = { id: id, width: width, height: height, fileName: fileName, quality: quality, altText: altText };
+            if (canUseDOM) {
+                this.handleClientLoad(image);
+            } else {
+                this.handleServerLoad(image);
             }
         }
     }, {
         key: "render",
         value: function render() {
-            if (!this.visible || !this.src) {
-                var noscript = null;
+            var _state = this.state,
+                visible = _state.visible,
+                src = _state.src;
+            var _props4 = this.props,
+                altText = _props4.altText,
+                itemProp = _props4.itemProp;
+
+            if (!visible || !src) {
                 return (0, _jsx3.default)("img", {
+                    alt: altText,
+                    itemProp: itemProp,
                     className: this.props.className
                 });
             }
             return (0, _jsx3.default)("img", {
-                src: this.src,
+                src: src,
+                alt: altText,
+                itemProp: itemProp,
                 className: this.props.className
             });
         }
     }]);
     return AdaptiveImage;
-}(_react2.default.Component), _class2.defaultProps = {
+}(_react2.default.Component), _class.defaultProps = {
     quality: 80,
-    fileName: "image.jpg"
-}, _temp)) || _class;
+    fileName: "image.jpg",
+    onShow: function onShow() {}
+}, _temp);
+
 
 AdaptiveImage.propTypes = {
     id: _propTypes2.default.string,
     width: _propTypes2.default.number,
-    height: _propTypes2.default.string,
+    height: _propTypes2.default.number,
     fileName: _propTypes2.default.string.isRequired,
     quality: _propTypes2.default.number,
     className: _propTypes2.default.string,
     preLoad: _propTypes2.default.bool,
     altText: _propTypes2.default.string,
-    scrollThreshold: _propTypes2.default.number
+    itemProp: _propTypes2.default.string,
+    scrollThreshold: _propTypes2.default.number,
+    onShow: _propTypes2.default.func,
+    src: _propTypes2.default.string
 };
 
 exports.default = AdaptiveImage;
