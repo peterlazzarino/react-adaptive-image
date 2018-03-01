@@ -21,7 +21,7 @@ Some open source libraries that do this out of the box.
 
 If you have an image that needs to be shown on multiple browser sizes (mobile, tablet, desktop, 5k TV) but don't want to sacrifice quality or performance based on the users device, this library will allow you to serve the correct image size at any resolution.
 
-This component, in conjuction with an image server that allows resizing allows you to do that easily. I am a big fan of node-image-steam but that is up to you, and there is an easy way to configure URL generation shown below.
+This component, in conjunction with an image server that allows resizing allows you to do that easily. I am a big fan of node-image-steam but that is up to you, and there is an easy way to configure URL generation shown below.
 
 ## How this works now
 
@@ -163,7 +163,7 @@ This will override the auto generating src and skip the imageResolver function s
 
 # Usage
 
-The initImages function takes an object for intialization that, in addition to the example above, can take some configuration for how the component will behave.
+The initImages function takes an object for initialization that, in addition to the example above, can take some configuration for how the component will behave.
 
 ```
 
@@ -187,13 +187,13 @@ The initImages function takes an object for intialization that, in addition to t
   
 **fileName** - the name of the file passed to the component.  
   
-**quality** - the qualtiy of the file passed to the component.  
+**quality** - the quality of the file passed to the component.  
   
 **altText** - alt text of the image.  
 
 ## imageSettings
 
-**noWidthReplacementSize** - If an image is smaller than this size (200px defualt) the image will automatically be rendered at this width.  
+**noWidthReplacementSize** - If an image is smaller than this size (200px default) the image will automatically be rendered at this width.  
   
 **maxWidth** - The max width than an image can be rendered as. 
   
