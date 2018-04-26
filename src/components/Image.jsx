@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 
 class Image extends React.Component{
     render(){
+        const { src, altText, itemProp, className } = this.props;
         return (
-            <img src={src} alt={altText} itemProp={itemProp} className={this.props.className} />
+            <img src={src} alt={altText} itemProp={itemProp} className={className} />
         )
     }
 }

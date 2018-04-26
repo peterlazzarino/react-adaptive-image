@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 class BackgroundImage extends React.Component{
     render(){
+        const { src, altText, className } = this.props;
         const imageStyle = {
             backgroundImage: "url(" + { src } + ")"
         };
@@ -15,8 +16,7 @@ class BackgroundImage extends React.Component{
 BackgroundImage.propTypes = {
     className: PropTypes.string,
     altText: PropTypes.string,
-    src: PropTypes.string,
-    itemProp: PropTypes.string
+    src: PropTypes.string
 };
 
 export default BackgroundImage;
