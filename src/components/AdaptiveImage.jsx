@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
-import { register, deregister } from "../utils/clientEvents"
-import { getUrl, getStaticUrl } from "../utils/imgUrlGen"
+import { register, deregister } from "../utils/clientEvents";
+import { getUrl, getStaticUrl } from "../utils/imgUrlGen";
+import Image from "./Image";
+import BackgroundImage from "./BackgroundImage";
 
 const canUseDOM = typeof window !== "undefined";
 
@@ -85,20 +87,17 @@ class AdaptiveImage extends React.Component{
     
     render(){
         const { visible, src } = this.state; 
-        const { altText, itemProp } = this.props;
-        if(!visible || !src){
-            return (
-                <img alt={altText} itemProp={itemProp} className={this.props.className} />
-            )
-        }
+        const { altText, backgroundImage, itemProp, className } = this.props;
+        const ImgEl = backgroundImage ? BackgroundImage : Image;
+        const hideImage = !visible || !src;
+        const imgSrc = hideImage ? null : src;
         return (
-            <img src={src} alt={altText} itemProp={itemProp} className={this.props.className} />
+            <ImgEl src={imgSrc} alt={altText} itemProp={itemProp} className={className} />
         )
     }
 }
 
 AdaptiveImage.propTypes = {
-    id: PropTypes.string,
     width: PropTypes.number,
     height: PropTypes.number,
     fileName: PropTypes.string.isRequired,
@@ -109,7 +108,8 @@ AdaptiveImage.propTypes = {
     itemProp: PropTypes.string,
     scrollThreshold: PropTypes.number,
     onShow: PropTypes.func,
-    src: PropTypes.string
+    src: PropTypes.string,
+    backgroundImage: PropTypes.bool
 };
 
 export default AdaptiveImage;

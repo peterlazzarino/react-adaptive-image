@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.register = undefined;
+exports.deregister = exports.register = undefined;
 
 var _detectPassiveEvents = require("detect-passive-events");
 
@@ -40,6 +40,10 @@ var register = exports.register = function register(component, callback) {
         callback: callback
     });
     tryShowImage(component, callback);
+};
+
+var deregister = exports.deregister = function deregister(id) {
+    removeListener(id);
 };
 
 var bindEvents = function bindEvents() {
@@ -98,12 +102,18 @@ var getYPosition = function getYPosition(node) {
     return yPosition;
 };
 
+var removeListener = function removeListener(id) {
+    var index = listeners.findIndex(function (x) {
+        return x.component.props.id == id;
+    });
+    if (index !== -1) {
+        listeners.splice(index, 1);
+    }
+};
+
 var purgePending = function purgePending() {
     pending.forEach(function (component) {
-        var index = listeners.indexOf(component);
-        if (index !== -1) {
-            listeners.splice(index, 1);
-        }
+        removeListener(component.props.id);
     });
 
     pending = [];
