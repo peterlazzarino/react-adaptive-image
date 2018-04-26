@@ -164,7 +164,8 @@ var AdaptiveImage = (_temp = _class = function (_React$Component) {
             var _props3 = this.props,
                 altText = _props3.altText,
                 backgroundImage = _props3.backgroundImage,
-                itemProp = _props3.itemProp;
+                itemProp = _props3.itemProp,
+                className = _props3.className;
 
             var ImgEl = backgroundImage ? _BackgroundImage2.default : _Image2.default;
             var hideImage = !visible || !src;
@@ -173,7 +174,7 @@ var AdaptiveImage = (_temp = _class = function (_React$Component) {
                 src: imgSrc,
                 alt: altText,
                 itemProp: itemProp,
-                className: this.props.className
+                className: className
             });
         }
     }]);

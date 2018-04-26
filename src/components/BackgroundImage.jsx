@@ -5,7 +5,7 @@ class BackgroundImage extends React.Component{
     render(){
         const { src, altText, className } = this.props;
         const imageStyle = {
-            backgroundImage: "url(" + { src } + ")"
+            backgroundImage: `url(${src})`
         };
         return (
             <div style={imageStyle} aria-label={altText} className={this.props.className} />

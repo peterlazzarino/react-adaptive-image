@@ -1,6 +1,6 @@
 {
   "name": "react-adaptive-image",
-  "version": "1.6.0-beta.3",
+  "version": "1.6.0-beta.6",
   "description": "Lazy load images with React and dynamic image size generation. Allows for configurable image URL generation at the app level",
   "main": "dist/index.js",
   "scripts": {
