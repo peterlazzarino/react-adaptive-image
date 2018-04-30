@@ -14,6 +14,7 @@ export let preLoadImageResolver = (image) => {
 }
 
 export const initImages = (settings) => {
-    imageResolver = settings.imageResolver;
+    imageResolver = settings.imageResolver || imageResolver;
+    preLoadImageResolver = settings.preLoadImageResolver || preLoadImageResolver;
     imageSettings = Object.assign({}, imageSettings, settings.imageSettings);    
 }
