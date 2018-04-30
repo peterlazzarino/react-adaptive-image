@@ -9,6 +9,10 @@ export let imageResolver = (image) => {
     return `/${image.id}.${image.caption}`;
 }
 
+export let preLoadImageResolver = (image) => {
+    return `/${image.id}.${image.caption}`;
+}
+
 export const initImages = (settings) => {
     imageResolver = settings.imageResolver;
     imageSettings = Object.assign({}, imageSettings, settings.imageSettings);    
