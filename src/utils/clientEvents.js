@@ -43,7 +43,10 @@ const checkVisible = () => {
 
 const tryShowImage = (component, callback) => {
     const node = ReactDOM.findDOMNode(component);
-    if(node && shouldBeShown(node)){
+    if(!node){
+        return;
+    }
+    if(isPastThreshold(node, imageSettings.lazyScrollThreshold)){
         const { id, width, height, fileName, quality, altText } = component.props;
         const image = { id, width, height, fileName, quality, altText };
         const nextUrl = getUrl(node, image);
@@ -57,14 +60,19 @@ const tryShowImage = (component, callback) => {
     }
 }
 
-const shouldBeShown = (node) => {
+const isPastThreshold = (node, threshold) => {
     if(!isValidDOMElement(node)){
         return false;
     }
+    const docViewBottom = getWindowPosition();
+    const elemTop = getYPosition(node);
+    return (elemTop - threshold) <= docViewBottom;
+}
+
+const getWindowPosition = () => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const docViewBottom = scrollTop + window.outerHeight;
-    const elemTop = getYPosition(node);
-    return (elemTop - imageSettings.lazyScrollThreshold) <= docViewBottom;
+    return docViewBottom;
 }
 
 const getYPosition = (node) => {
