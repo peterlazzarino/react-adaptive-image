@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 class BackgroundImage extends React.Component{
     render(){
         const { src, altText, className } = this.props;
-        const imageStyle = {
+        const imageStyle = src && {
             backgroundImage: `url(${src})`
         };
         return (
-            <div style={imageStyle} aria-label={altText} className={this.props.className} />
+            <div style={imageStyle} aria-label={altText} className={className} />
         )
     }
 }
