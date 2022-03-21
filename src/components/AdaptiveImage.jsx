@@ -92,7 +92,7 @@ class AdaptiveImage extends React.Component{
         const hideImage = !visible || !src;
         const imgSrc = hideImage ? null : src;
         return (
-            <ImgEl src={imgSrc} alt={altText} itemProp={itemProp} className={className} />
+            <ImgEl src={imgSrc} altText={altText} itemProp={itemProp} className={className} />
         )
     }
 }
